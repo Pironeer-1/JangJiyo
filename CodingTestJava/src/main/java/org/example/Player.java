@@ -3,16 +3,13 @@ package org.example;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Player {
-    private int hp, ad, ap;
+class Player extends Character {
+    private int ap;
 
     public Player() {
-        this.hp = 50;
-        this.ad = 10;
-        this.ap = 5;
+        super(50, 10);
+        ap = 5;
     }
-
-    public int getHp() { return hp; }
 
     public void setStatus(int point) {
         Scanner sc = new Scanner(System.in);
@@ -43,24 +40,21 @@ public class Player {
         }
     }
 
-    public void decreaseHp(int damage) {
-        this.hp = Math.max(this.hp - damage, 0);
-    }
-
     public void checkStatus(Enemy enemy) {
         System.out.println("현재 유저: 체력 " + this.hp + ", 공격력 " + this.ad + ", 마법력 " + this.ap);
-        System.out.println("적 유저: 체력 " + enemy.getHp() + ", 공격력 " + enemy.getAd() + ", 마법력 " + enemy.getApDefence());
+        System.out.println("적 유저: 체력 " + enemy.getHp() + ", 공격력 " + enemy.getAd() + ", 방어력 " + enemy.getApDefence() + ", 마법방어력 " + enemy.getApDefence());
 
-        int damage = this.ad - enemy.getApDefence();
+        int damage = this.ad - enemy.getAdDefence();
         enemy.decreaseHp(damage);
         System.out.println("일반 공격으로 "+ damage + "의 데미지를 주었습니다.\n");
     }
 
+    @Override
     public void basicAttack(Enemy enemy) {
         Random random = new Random();
         int criticalPoint = random.nextInt(10) + 1; // 1 ~ 10까지의 난수 생성
 
-        int damage = this.ad - enemy.getApDefence();
+        int damage = this.ad - enemy.getAdDefence();
 
         if (criticalPoint > 2) {
             enemy.decreaseHp(damage);
@@ -78,6 +72,7 @@ public class Player {
         System.out.println("마법 공격으로 " + damage + "의 데미지를 주었습니다.");
      }
 
+     @Override
      public void healSelf() {
         Random random = new Random();
         int healPoint = random.nextInt(6) + 5; // 5 ~ 10까지의 난수 생성
@@ -85,6 +80,7 @@ public class Player {
         System.out.println("체력을 회복합니다. 현재 hp는 " + this.hp + "입니다.");
      }
 
+     @Override
      public void attack(Enemy enemy, int playerIndex) {
         while (true) {
             Scanner sc = new Scanner(System.in);
