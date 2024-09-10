@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
-    int hp, ad, ap;
+    private int hp, ad, ap;
 
     public Player() {
         this.hp = 50;
@@ -12,7 +12,9 @@ public class Player {
         this.ap = 5;
     }
 
-    public void statusSet(int point) {
+    public int getHp() { return hp; }
+
+    public void setStatus(int point) {
         Scanner sc = new Scanner(System.in);
         System.out.println("------------------------------------------------------------------------------");
         System.out.println(point + "만큼의 스테이터스를 추가합니다. 체력, 공격력, 마법력 순으로 입력하세요\n(1 포인트 당 체력 = 3, 공격력 = 1, 마법력 = 1 증가)\n");
@@ -47,9 +49,9 @@ public class Player {
 
     public void checkStatus(Enemy enemy) {
         System.out.println("현재 유저: 체력 " + this.hp + ", 공격력 " + this.ad + ", 마법력 " + this.ap);
-        System.out.println("적 유저: 체력 " + enemy.hp + ", 공격력 " + enemy.ad + ", 마법력 " + enemy.apDefence);
+        System.out.println("적 유저: 체력 " + enemy.getHp() + ", 공격력 " + enemy.getAd() + ", 마법력 " + enemy.getApDefence());
 
-        int damage = this.ad - enemy.adDefence;
+        int damage = this.ad - enemy.getApDefence();
         enemy.decreaseHp(damage);
         System.out.println("일반 공격으로 "+ damage + "의 데미지를 주었습니다.\n");
     }
@@ -58,7 +60,7 @@ public class Player {
         Random random = new Random();
         int criticalPoint = random.nextInt(10) + 1; // 1 ~ 10까지의 난수 생성
 
-        int damage = this.ad - enemy.adDefence;
+        int damage = this.ad - enemy.getApDefence();
 
         if (criticalPoint > 2) {
             enemy.decreaseHp(damage);
@@ -71,7 +73,7 @@ public class Player {
     }
 
      public void magicAttack(Enemy enemy) {
-        int damage = this.ap * 2 - enemy.apDefence;
+        int damage = this.ap * 2 - enemy.getApDefence();
         enemy.decreaseHp(damage);
         System.out.println("마법 공격으로 " + damage + "의 데미지를 주었습니다.");
      }

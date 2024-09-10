@@ -6,9 +6,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    int statusPoint = 13;
-    List<Player> playerList = new ArrayList<>();
-    Enemy enemy;
+    private int statusPoint = 13;
+    private List<Player> playerList = new ArrayList<>();
+    private Enemy enemy;
 
     public void setPlayers() {
         Scanner sc = new Scanner(System.in);
@@ -28,7 +28,7 @@ public class Game {
         }
         for (int i = 0; i < listNum; i++) {
             Player player = new Player();
-            player.statusSet(statusPoint);
+            player.setStatus(statusPoint);
             playerList.add(player);
         }
     }
@@ -38,8 +38,8 @@ public class Game {
     }
 
     public boolean turnCheck() {
-        playerList.removeIf(player -> player.hp <= 0);
-        if (playerList.isEmpty() || enemy.hp == 0) {
+        playerList.removeIf(player -> player.getHp() <= 0);
+        if (playerList.isEmpty() || enemy.getHp() == 0) {
             return false;
         } else {
             return true;
@@ -59,7 +59,7 @@ public class Game {
             for (int playerIndex = 0; playerIndex < playerList.size(); playerIndex++) {
                 Player player = playerList.get(playerIndex);
                 player.attack(enemy, playerIndex);
-                if (enemy.hp == 0) {
+                if (enemy.getHp() == 0) {
                     break;
                 }
             }
@@ -74,7 +74,7 @@ public class Game {
             }
         }
 
-        if (enemy.hp <= 0) {
+        if (enemy.getHp() <= 0) {
             System.out.println("축하합니다! 승리하셨습니다!");
         } else {
             System.out.println("아쉽지만 패배하셨습니다.");

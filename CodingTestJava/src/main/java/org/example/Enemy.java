@@ -3,7 +3,7 @@ package org.example;
 import java.util.Random;
 
 public class Enemy {
-    int hp, ad, maxHp, adDefence, apDefence;
+    private int hp, ad, maxHp, adDefence, apDefence;
 
     public Enemy(int listNum) {
         this.maxHp = 100 * listNum;
@@ -12,6 +12,10 @@ public class Enemy {
         this.adDefence = 7;
         this.apDefence = 7;
     }
+
+    public int getHp() { return hp; }
+    public int getAd() { return ad; }
+    public int getApDefence() { return apDefence; }
 
     public void decreaseHp(int damage) {
         hp = Math.max(hp - damage, 0);
@@ -24,7 +28,7 @@ public class Enemy {
 
      public void healSelf() {
         int healingAmount = 7;
-        if (hp < (hp + healingAmount)) {
+        if (maxHp < (hp + healingAmount)) {
             System.out.println("적이 회복했지만 적은 이미 최대체력입니다.\n");
         } else {
             hp += healingAmount;
