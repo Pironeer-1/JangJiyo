@@ -1,7 +1,6 @@
 package Output;
 
 import Character.CharacterType;
-import Character.Enemy;
 import Character.GameValues;
 import Character.Player;
 
@@ -14,8 +13,8 @@ public class Printer {
     public void printStatus(Player player) {
         System.out.println("현재 유저: 체력 " + player.getHp() + ", 공격력 " + player.getAd() + ", 마법력 " + player.getAp());
     }
-    public void printStatus(Enemy enemy) {
-        System.out.println("적 유저: 체력 " + enemy.getHp() + ", 공격력 " + enemy.getAd() + ", 방어력 " + GameValues.ENEMY_AD_DEFENCE.getValue() + ", 마법방어력 " + GameValues.ENEMY_AP_DEFENCE.getValue());
+    public void printStatus(CharacterType target) {
+        System.out.println("적 유저: 체력 " + target.getHp() + ", 공격력 " + target.getAd() + ", 방어력 " + GameValues.ENEMY_AD_DEFENCE.getValue() + ", 마법방어력 " + GameValues.ENEMY_AP_DEFENCE.getValue());
     }
 
     // turn 출력 함수

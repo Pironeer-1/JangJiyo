@@ -93,4 +93,7 @@ public class Game {
     public void executeSkill(CharacterType attacker, CharacterType target, Skills skill) {
         skill.executeSkill(attacker, target);
     }
+    public void executeSkill(CharacterType target, Skills skill) {
+        skill.executeSkill(target);
+    }
 }

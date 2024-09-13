@@ -1,6 +1,5 @@
 package Character;
 
-import Output.Printer;
 import Skills.*;
 import org.example.Game;
 
@@ -8,7 +7,6 @@ import java.util.Scanner;
 
 public class Player extends CharacterType {
     private int ap;
-    private Printer printer = new Printer();
     SkillType skillTypes[] = SkillType.values();
 
     public Player() {
@@ -47,23 +45,24 @@ public class Player extends CharacterType {
         }
     }
 
-    public void checkStatus(Enemy enemy) {
+    public void checkStatus(CharacterType target) {
         printer.printStatus(this);
-        printer.printStatus(enemy);
+        printer.printStatus(target);
 
         int damage = this.ad - GameValues.ENEMY_AD_DEFENCE.getValue();
-        enemy.decreaseHp(damage);
+        target.decreaseHp(damage);
         printer.printAttack(skillTypes[1].name(), damage);
     }
 
      @Override
-     public void attack(Enemy enemy, int playerIndex) {
+     public void attack(CharacterType target, int playerIndex) {
         while (true) {
             Scanner sc = new Scanner(System.in);
             BasicAttack basicAttack = new BasicAttack();
             MagicAttack magicAttack = new MagicAttack();
             HealSelf healSelf = new HealSelf();
             Game game = new Game();
+
             try {
                 printer.printDivider();
                 printer.printTurn(playerIndex);
@@ -80,16 +79,16 @@ public class Player extends CharacterType {
                 }
                 switch (inputKey) {
                     case 1:
-                        this.checkStatus(enemy);
+                        this.checkStatus(target);
                         break;
                     case 2:
-                        game.executeSkill(this, enemy, basicAttack);
+                        game.executeSkill(this, target, basicAttack);
                         break;
                     case 3:
-                        game.executeSkill(this, enemy, magicAttack);
+                        game.executeSkill(this, target, magicAttack);
                         break;
                     case 4:
-                        game.executeSkill(this, this, healSelf);
+                        game.executeSkill(this, healSelf);
                         break;
                 }
                 break;

@@ -28,4 +28,7 @@ public class BasicAttack extends Skills {
         }
         target.decreaseHp(damage);
     }
+
+    @Override
+    public void executeSkill(CharacterType target) { }
 }

@@ -5,19 +5,22 @@ import Character.*;
 
 public class HealSelf extends Skills {
     @Override
-    public void executeSkill(CharacterType attacker, CharacterType target) {
+    public void executeSkill(CharacterType target) {
         int healPoint;
-        if (attacker instanceof Player) {
+        if (target instanceof Player) {
             Random random = new Random();
             healPoint = random.nextInt(6) + 5; // 5 ~ 10까지의 난수 생성
-            attacker.setHp(attacker.getHp() + healPoint);
-            printer.printHealing(attacker);
+            target.setHp(target.getHp() + healPoint);
+            printer.printHealing(target);
         } else {
             healPoint = GameValues.ENEMY_HEALINGAMOUNT.getValue();
-            if (attacker.getMaxHp() >= (attacker.getHp() + healPoint)) {
-                attacker.setHp(attacker.getHp() + healPoint);
+            if (target.getMaxHp() >= (target.getHp() + healPoint)) {
+                target.setHp(target.getHp() + healPoint);
             }
-            printer.printHealing(attacker, healPoint);
+            printer.printHealing(target, healPoint);
         }
     }
+
+    @Override
+    public void executeSkill(CharacterType attacker, CharacterType target) { }
 }

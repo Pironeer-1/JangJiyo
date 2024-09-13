@@ -10,4 +10,7 @@ public class MagicAttack extends Skills {
         target.decreaseHp(damage);
         printer.printAttack(skillTypes[2].getSkill(), damage);
     }
+
+    @Override
+    public void executeSkill(CharacterType target) { }
 }

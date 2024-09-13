@@ -1,9 +1,12 @@
 package Character;
 
+import Output.Printer;
+
 public abstract class CharacterType {
     protected int hp;
     protected int ad;
     protected int maxHp;
+    protected Printer printer = new Printer();
 
     CharacterType(int hp, int ad) {
         this.hp = hp;
@@ -22,6 +25,5 @@ public abstract class CharacterType {
         hp = Math.max(hp - damage, 0);
     }
 
-    public void attack(Enemy enemy, int playerIndex) { } // player
-    public void attack(Player player, int playerIndex) { } // enemy
+    public abstract void attack(CharacterType target, int playerIndex);
 }

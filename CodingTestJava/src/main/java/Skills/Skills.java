@@ -8,4 +8,5 @@ public abstract class Skills {
     protected SkillType skillTypes[] = SkillType.values();
 
     public abstract void executeSkill(CharacterType attacker, CharacterType target);
+    public abstract void executeSkill(CharacterType target);
 }
