@@ -1,17 +1,22 @@
-package org.example;
+package Character;
 
-import java.util.Random;
+import Output.Printer;
+import Skills.*;
+import org.example.Game;
+
 import java.util.Scanner;
 
-class Player extends Character {
+public class Player extends CharacterType {
     private int ap;
     private Printer printer = new Printer();
+    SkillType skillTypes[] = SkillType.values();
 
     public Player() {
-        super(50, 10);
-        ap = 5;
+        super(GameValues.PLAYER_INITIAL_HP.getValue(), GameValues.PLAYER_INITIAL_AD.getValue());
+        this.ap = GameValues.PLAYER_INITIAL_AP.getValue();
     }
-    public int getAp() { return ap;}
+
+    public int getAp() { return ap; }
 
     public void setStatus(int point) {
         Scanner sc = new Scanner(System.in);
@@ -46,46 +51,19 @@ class Player extends Character {
         printer.printStatus(this);
         printer.printStatus(enemy);
 
-        int damage = this.ad - enemy.getAdDefence();
+        int damage = this.ad - GameValues.ENEMY_AD_DEFENCE.getValue();
         enemy.decreaseHp(damage);
-        printer.printAttack("일반 공격", damage);
+        printer.printAttack(skillTypes[1].name(), damage);
     }
-
-    @Override
-    public void basicAttack(Enemy enemy) {
-        Random random = new Random();
-        int criticalPoint = random.nextInt(10) + 1; // 1 ~ 10까지의 난수 생성
-
-        int damage = this.ad - enemy.getAdDefence();
-
-        if (criticalPoint > 2) {
-            enemy.decreaseHp(damage);
-            printer.printAttack("일반 공격", damage);
-        } else {
-            damage *= 2;
-            enemy.decreaseHp(damage);
-            printer.printAttack("일반 공격", damage);
-        }
-    }
-
-     public void magicAttack(Enemy enemy) {
-        int damage = this.ap * 2 - enemy.getApDefence();
-        enemy.decreaseHp(damage);
-         printer.printAttack("마법 공격", damage);
-     }
-
-     @Override
-     public void healSelf() {
-        Random random = new Random();
-        int healPoint = random.nextInt(6) + 5; // 5 ~ 10까지의 난수 생성
-        this.hp += healPoint;
-        printer.printHealing(this);
-     }
 
      @Override
      public void attack(Enemy enemy, int playerIndex) {
         while (true) {
             Scanner sc = new Scanner(System.in);
+            BasicAttack basicAttack = new BasicAttack();
+            MagicAttack magicAttack = new MagicAttack();
+            HealSelf healSelf = new HealSelf();
+            Game game = new Game();
             try {
                 printer.printDivider();
                 printer.printTurn(playerIndex);
@@ -105,13 +83,13 @@ class Player extends Character {
                         this.checkStatus(enemy);
                         break;
                     case 2:
-                        this.basicAttack(enemy);
+                        game.executeSkill(this, enemy, basicAttack);
                         break;
                     case 3:
-                        this.magicAttack(enemy);
+                        game.executeSkill(this, enemy, magicAttack);
                         break;
                     case 4:
-                        this.healSelf();
+                        game.executeSkill(this, this, healSelf);
                         break;
                 }
                 break;

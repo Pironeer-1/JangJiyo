@@ -1,5 +1,9 @@
 package org.example;
 
+import Output.Printer;
+import Skills.Skills;
+import Character.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,21 +13,26 @@ public class Game {
     private int statusPoint = 13;
     private List<Player> playerList = new ArrayList<>();
     private Enemy enemy;
+    private Printer printer = new Printer();
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
 
     public void setPlayers() {
         Scanner sc = new Scanner(System.in);
         int listNum;
         while (true) {
             try {
-                System.out.println("플레이어 인원을 정하세요: ");
+                printer.printMessage("플레이어 인원을 정하세요: ");
                 listNum = sc.nextInt();
                 if (listNum <= 0) {
-                    System.out.println("플레이어 인원은 1 이상이어야 합니다.");
+                    printer.printMessage("플레이어 인원은 1 이상이어야 합니다.");
                     continue;
                 }
                 break;
             } catch (Exception e) {
-                System.out.println("잘못된 입력입니다. 숫자를 입력해주세요.");
+                printer.printMessage("잘못된 입력입니다. 숫자를 입력해주세요.");
             }
         }
         for (int i = 0; i < listNum; i++) {
@@ -75,9 +84,13 @@ public class Game {
         }
 
         if (enemy.getHp() <= 0) {
-            System.out.println("축하합니다! 승리하셨습니다!");
+            printer.printMessage("축하합니다! 승리하셨습니다!");
         } else {
-            System.out.println("아쉽지만 패배하셨습니다.");
+            printer.printMessage("아쉽지만 패배하셨습니다.");
         }
+    }
+
+    public void executeSkill(CharacterType attacker, CharacterType target, Skills skill) {
+        skill.executeSkill(attacker, target);
     }
 }
