@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class TopicRepository {
     private final AtomicLong topicIdxGenerator = new AtomicLong(0);
-    private final Map<Long, Topic> topicMap = new HashMap<Long, Topic>();
+    private final Map<Long, Topic> topicMap = new HashMap<>();
 
     public void save(Topic topic) {
         if(topic.getId() == null) {
@@ -27,7 +27,7 @@ public class TopicRepository {
 
     public Optional<Topic> findById(Long id) {
         Assert.notNull(id, "Id must not be null");
-        return Optional.of(topicMap.get(id));
+        return Optional.ofNullable(topicMap.get(id));
     }
 
     public List<Topic> findAll() {

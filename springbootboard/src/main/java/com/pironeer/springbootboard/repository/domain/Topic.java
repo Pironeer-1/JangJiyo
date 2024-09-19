@@ -1,5 +1,6 @@
 package com.pironeer.springbootboard.repository.domain;
 
+import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,5 +21,12 @@ public class Topic {
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public Topic update(TopicUpdateRequest request) {
+        this.title = request.title();
+        this.content = request.content();
+        this.updatedAt = LocalDateTime.now();
+        return this;
     }
 }
