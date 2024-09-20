@@ -12,7 +12,7 @@ public class Comment {
     private Long id;
     private Long topicId;
     private String content;
-    private List<Subcomment> subcomments;
+    private List<Subcomment> subcomments  = new ArrayList<>();;
 
     @Builder
     public Comment(Long id, Long topicId, String content, List<Subcomment> subcomments) {

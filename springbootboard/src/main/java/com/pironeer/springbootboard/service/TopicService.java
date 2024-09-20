@@ -2,6 +2,7 @@ package com.pironeer.springbootboard.service;
 
 import com.pironeer.springbootboard.dto.request.*;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
+import com.pironeer.springbootboard.dto.response.SubcommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.repository.TopicRepository;
 import com.pironeer.springbootboard.repository.domain.Comment;
@@ -86,5 +87,10 @@ public class TopicService {
                 .content(request.content())
                 .build();
         topicRepository.addSubcommentToComment(subcomment);
+    }
+
+    public List<SubcommentResponse> readAllSubcomments(Long commentId) {
+        List<Subcomment> subcomments = topicRepository.readAllSubcomments(commentId);
+        return subcomments.stream().map(SubcommentResponse::of).toList();
     }
 }

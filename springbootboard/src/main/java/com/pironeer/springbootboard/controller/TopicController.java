@@ -2,6 +2,7 @@ package com.pironeer.springbootboard.controller;
 
 import com.pironeer.springbootboard.dto.request.*;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
+import com.pironeer.springbootboard.dto.response.SubcommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.service.TopicService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -97,5 +98,12 @@ public class TopicController {
     public ResponseEntity<?> createSubcomment(@Valid @RequestBody SubcommentCreateRequest request) {
         topicService.addSubcommentToComment(request);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{topicId}/comment/{commentId}/subcomment")
+    @Operation(summary = "대댓글 전체 조회")
+    public ResponseEntity<List<SubcommentResponse>> readAllSubcomments(@PathVariable("commentId") Long commentId) {
+        List<SubcommentResponse> responses = topicService.readAllSubcomments(commentId);
+        return ResponseEntity.ok().body(responses);
     }
 }

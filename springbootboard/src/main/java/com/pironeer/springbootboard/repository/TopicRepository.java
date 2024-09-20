@@ -55,7 +55,7 @@ public class TopicRepository {
             comment.setId(id);
             topic.addComment(comment);
             topicMap.replace(comment.getTopicId(), topic);
-            commentMap.put(comment.getId(), comment);
+            commentMap.put(id, comment);
         } else {
             topicMap.replace(comment.getTopicId(), topic);
             commentMap.replace(comment.getId(), comment);
@@ -87,15 +87,19 @@ public class TopicRepository {
         Comment comment = commentMap.get(subcomment.getCommentId());
         Assert.notNull(comment, "Comment not found");
 
-        if(comment.getId() == null) {
+        if(subcomment.getId() == null) {
             Long id = subcommentIdxGenerator.incrementAndGet();
             subcomment.setId(id);
             comment.addSubcomment(subcomment);
             commentMap.replace(subcomment.getCommentId(), comment);
-            subcommentMap.put(subcomment.getId(), subcomment);
+            subcommentMap.put(id, subcomment);
         } else {
             commentMap.replace(subcomment.getCommentId(), comment);
             subcommentMap.replace(subcomment.getId(), subcomment);
         }
+    }
+
+    public List<Subcomment> readAllSubcomments(Long commentId) {
+        return commentMap.get(commentId).getSubcomments();
     }
 }
