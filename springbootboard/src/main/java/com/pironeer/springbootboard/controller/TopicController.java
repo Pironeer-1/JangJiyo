@@ -106,4 +106,11 @@ public class TopicController {
         List<SubcommentResponse> responses = topicService.readAllSubcomments(commentId);
         return ResponseEntity.ok().body(responses);
     }
+
+    @GetMapping("/{topicId}/comment/{commentId}/subcomment/{subcommentId}")
+    @Operation(summary = "대댓글 단건 조회")
+    public ResponseEntity<SubcommentResponse> readSubcommentById(@PathVariable("subcommentId") Long id) {
+        SubcommentResponse response = topicService.findSubcommentById(id);
+        return ResponseEntity.ok().body(response);
+    }
 }

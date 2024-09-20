@@ -93,4 +93,10 @@ public class TopicService {
         List<Subcomment> subcomments = topicRepository.readAllSubcomments(commentId);
         return subcomments.stream().map(SubcommentResponse::of).toList();
     }
+
+    public SubcommentResponse findSubcommentById(Long id) {
+        Subcomment subcomment = topicRepository.findSubcommentById(id)
+                .orElseThrow(() -> new RuntimeException("Subcomment not found"));
+        return SubcommentResponse.of(subcomment);
+    }
 }

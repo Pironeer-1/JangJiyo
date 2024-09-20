@@ -102,4 +102,9 @@ public class TopicRepository {
     public List<Subcomment> readAllSubcomments(Long commentId) {
         return commentMap.get(commentId).getSubcomments();
     }
+
+    public Optional<Subcomment> findSubcommentById(Long id) {
+        Assert.notNull(id, "Id must not be null");
+        return Optional.ofNullable(subcommentMap.get(id));
+    }
 }
