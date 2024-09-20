@@ -104,4 +104,12 @@ public class TopicRepository {
         Assert.notNull(id, "Id must not be null");
         return Optional.ofNullable(subcommentMap.get(id));
     }
+
+    public void deleteSubcomment(Long id) {
+        Assert.notNull(id, "Id must not be null");
+
+        Comment comment = commentMap.get(subcommentMap.get(id).getCommentId());
+        comment.deleteSubcomment(id);
+        subcommentMap.remove(id);
+    }
 }

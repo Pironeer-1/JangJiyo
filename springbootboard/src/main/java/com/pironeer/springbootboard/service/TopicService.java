@@ -108,4 +108,8 @@ public class TopicService {
         topicRepository.addSubcommentToComment(subcomment.update(request));
         return SubcommentResponse.of(subcomment);
     }
+
+    public void deleteSubcomment(Long id) {
+        topicRepository.deleteSubcomment(id);
+    }
 }

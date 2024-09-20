@@ -30,4 +30,8 @@ public class Comment {
     public void addSubcomment(Subcomment subcomment) {
         this.subcomments.add(subcomment);
     }
+
+    public void deleteSubcomment(Long id) {
+        this.subcomments.removeIf(subcomment -> subcomment.getId().equals(id));
+    }
 }

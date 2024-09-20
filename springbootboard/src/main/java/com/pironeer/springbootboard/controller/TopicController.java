@@ -120,4 +120,11 @@ public class TopicController {
         SubcommentResponse response = topicService.updateSubcomment(request);
         return ResponseEntity.ok().body(response);
     }
+
+    @DeleteMapping("/{topicId}/comment/{commentId}/subcomment/{subcommentId}")
+    @Operation(summary = "대댓글 삭제")
+    public ResponseEntity<?> deleteComment(@PathVariable("subcommentId") Long id) {
+        topicService.deleteSubcomment(id);
+        return ResponseEntity.ok().build();
+    }
 }
