@@ -113,4 +113,11 @@ public class TopicController {
         SubcommentResponse response = topicService.findSubcommentById(id);
         return ResponseEntity.ok().body(response);
     }
+
+    @PutMapping("/{topicId}/comment/{commentId}/subcomment")
+    @Operation(summary = "대댓글 수정")
+    public ResponseEntity<SubcommentResponse> updateSubcomment(@Valid @RequestBody SubcommentUpdateRequest request) {
+        SubcommentResponse response = topicService.updateSubcomment(request);
+        return ResponseEntity.ok().body(response);
+    }
 }

@@ -1,5 +1,6 @@
 package com.pironeer.springbootboard.repository.domain;
 
+import com.pironeer.springbootboard.dto.request.SubcommentUpdateRequest;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,5 +15,10 @@ public class Subcomment {
         this.id = id;
         this.commentId = commentId;
         this.content = content;
+    }
+
+    public Subcomment update(SubcommentUpdateRequest request) {
+        this.content = request.content();
+        return this;
     }
 }

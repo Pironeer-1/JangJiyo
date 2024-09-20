@@ -101,4 +101,11 @@ public class TopicService {
                 .orElseThrow(() -> new RuntimeException("Subcomment not found"));
         return SubcommentResponse.of(subcomment);
     }
+
+    public SubcommentResponse updateSubcomment(SubcommentUpdateRequest request) {
+        Subcomment subcomment = topicRepository.findSubcommentById(request.id())
+                .orElseThrow(() -> new RuntimeException("Subcomment not found"));
+        topicRepository.addSubcommentToComment(subcomment.update(request));
+        return SubcommentResponse.of(subcomment);
+    }
 }
