@@ -65,13 +65,15 @@ public class TopicService {
         return comments.stream().map(CommentResponse::of).toList();
     }
 
-    public CommentResponse readCommentById(Long topicId, Long commentId) {
-        Comment comment = topicRepository.readCommentById(topicId, commentId);
+    public CommentResponse findCommentById(Long id) {
+        Comment comment = topicRepository.findCommentById(id)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
         return CommentResponse.of(comment);
     }
 
     public CommentResponse updateComment(CommentUpdateRequest request) {
-        Comment comment = topicRepository.readCommentById(request.topicId(), request.id());
+        Comment comment = topicRepository.findCommentById(request.id())
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
         topicRepository.addCommentToTopic(comment.update(request));
         return CommentResponse.of(comment);
     }

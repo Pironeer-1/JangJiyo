@@ -66,12 +66,9 @@ public class TopicRepository {
         return topicMap.get(topicId).getComments();
     }
 
-    public Comment readCommentById(Long topicId, Long commentId) {
-        Assert.notNull(topicId, "Id must not be null");
-        Topic topic = topicMap.get(topicId);
-
-        return topic.getComments().stream().filter(comment -> comment.getId().equals(commentId)).findFirst()
-                .orElseThrow(() -> new RuntimeException("Comment not found"));
+    public Optional<Comment> findCommentById(Long id) {
+        Assert.notNull(id, "Id must not be null");
+        return Optional.ofNullable(commentMap.get(id));
     }
 
     public void deleteComment(Long topicId, Long commentId) {

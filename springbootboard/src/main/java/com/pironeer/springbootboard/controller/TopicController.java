@@ -73,8 +73,8 @@ public class TopicController {
 
     @GetMapping("/{topicId}/comment/{commentId}")
     @Operation(summary = "댓글 단건 조회")
-    public ResponseEntity<CommentResponse> readCommentById(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
-        CommentResponse response = topicService.readCommentById(topicId, commentId);
+    public ResponseEntity<CommentResponse> readCommentById(@PathVariable("commentId") Long id) {
+        CommentResponse response = topicService.findCommentById(id);
         return ResponseEntity.ok().body(response);
     }
 
