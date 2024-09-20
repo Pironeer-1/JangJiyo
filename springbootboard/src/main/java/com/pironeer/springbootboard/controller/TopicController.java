@@ -1,6 +1,7 @@
 package com.pironeer.springbootboard.controller;
 
 import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
+import com.pironeer.springbootboard.dto.request.CommentUpdateRequest;
 import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
@@ -76,6 +77,13 @@ public class TopicController {
     @Operation(summary = "댓글 단건 조회")
     public ResponseEntity<CommentResponse> readCommentById(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
         CommentResponse response = topicService.readCommentById(topicId, commentId);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PutMapping("/{topicId}/comment")
+    @Operation(summary = "댓글 수정")
+    public ResponseEntity<CommentResponse> updateComment(@Valid @RequestBody CommentUpdateRequest request) {
+        CommentResponse response = topicService.updateComment(request);
         return ResponseEntity.ok().body(response);
     }
 }

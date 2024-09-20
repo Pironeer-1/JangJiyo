@@ -45,10 +45,14 @@ public class TopicRepository {
         Topic topic = topicMap.get(comment.getTopicId());
         Assert.notNull(topic, "Topic not found");
 
-        comment.setId(commentIdxGenerator.incrementAndGet());
-        topic.addComment(comment);
-
-        topicMap.replace(comment.getTopicId(), topic);
+        if(comment.getId() == null) {
+            Long id = commentIdxGenerator.incrementAndGet();
+            comment.setId(id);
+            topic.addComment(comment);
+            topicMap.put(comment.getTopicId(), topic);
+        } else {
+            topicMap.replace(comment.getTopicId(), topic);
+        }
     }
 
     public List<Comment> readAllComments(Long topicId) {

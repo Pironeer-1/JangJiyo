@@ -1,5 +1,6 @@
 package com.pironeer.springbootboard.repository.domain;
 
+import com.pironeer.springbootboard.dto.request.CommentUpdateRequest;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,5 +15,10 @@ public class Comment {
         this.id = id;
         this.topicId = topicId;
         this.content = content;
+    }
+
+    public Comment update(CommentUpdateRequest request) {
+        this.content = request.content();
+        return this;
     }
 }

@@ -1,6 +1,7 @@
 package com.pironeer.springbootboard.service;
 
 import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
+import com.pironeer.springbootboard.dto.request.CommentUpdateRequest;
 import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
@@ -66,6 +67,12 @@ public class TopicService {
 
     public CommentResponse readCommentById(Long topicId, Long commentId) {
         Comment comment = topicRepository.readCommentById(topicId, commentId);
+        return CommentResponse.of(comment);
+    }
+
+    public CommentResponse updateComment(CommentUpdateRequest request) {
+        Comment comment = topicRepository.readCommentById(request.topicId(), request.id());
+        topicRepository.addCommentToTopic(comment.update(request));
         return CommentResponse.of(comment);
     }
 }
