@@ -38,7 +38,7 @@ public class Topic {
         this.comments.add(comment);
     }
 
-    public void deleteComment(Long commentId) {
-        this.comments.removeIf(comment -> comment.getId().equals(commentId));
+    public void deleteComment(Long id) {
+        this.comments.removeIf(comment -> comment.getId().equals(id));
     }
 }

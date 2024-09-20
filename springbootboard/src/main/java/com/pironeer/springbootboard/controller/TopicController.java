@@ -87,8 +87,8 @@ public class TopicController {
 
     @DeleteMapping("/{topicId}/comment/{commentId}")
     @Operation(summary = "댓글 삭제")
-    public ResponseEntity<?> deleteComment(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
-        topicService.deleteComment(topicId, commentId);
+    public ResponseEntity<?> deleteComment(@PathVariable("commentId") Long id) {
+        topicService.deleteComment(id);
         return ResponseEntity.ok().build();
     }
 
@@ -123,7 +123,7 @@ public class TopicController {
 
     @DeleteMapping("/{topicId}/comment/{commentId}/subcomment/{subcommentId}")
     @Operation(summary = "대댓글 삭제")
-    public ResponseEntity<?> deleteComment(@PathVariable("subcommentId") Long id) {
+    public ResponseEntity<?> deleteSubcomment(@PathVariable("subcommentId") Long id) {
         topicService.deleteSubcomment(id);
         return ResponseEntity.ok().build();
     }

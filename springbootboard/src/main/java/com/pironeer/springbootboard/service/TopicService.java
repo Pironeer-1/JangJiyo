@@ -78,8 +78,8 @@ public class TopicService {
         return CommentResponse.of(comment);
     }
 
-    public void deleteComment(Long topicId, Long commentId) {
-        topicRepository.deleteComment(topicId, commentId);
+    public void deleteComment(Long id) {
+        topicRepository.deleteComment(id);
     }
 
     // Subcomment
