@@ -52,6 +52,7 @@ public class TopicService {
         topicRepository.deleteById(id);
     }
 
+    // Comment
     public void addCommentToTopic(CommentCreateRequest request) {
         Comment comment = Comment.builder()
                 .topicId(request.topicId())
@@ -74,5 +75,9 @@ public class TopicService {
         Comment comment = topicRepository.readCommentById(request.topicId(), request.id());
         topicRepository.addCommentToTopic(comment.update(request));
         return CommentResponse.of(comment);
+    }
+
+    public void deleteComment(Long topicId, Long commentId) {
+        topicRepository.deleteComment(topicId, commentId);
     }
 }

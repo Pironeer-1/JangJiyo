@@ -37,4 +37,8 @@ public class Topic {
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
+
+    public void deleteComment(Long commentId) {
+        this.comments.removeIf(comment -> comment.getId().equals(commentId));
+    }
 }

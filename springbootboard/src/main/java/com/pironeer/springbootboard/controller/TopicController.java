@@ -86,4 +86,11 @@ public class TopicController {
         CommentResponse response = topicService.updateComment(request);
         return ResponseEntity.ok().body(response);
     }
+
+    @DeleteMapping("/{topicId}/comment/{commentId}")
+    @Operation(summary = "댓글 삭제")
+    public ResponseEntity<?> delete(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
+        topicService.deleteComment(topicId, commentId);
+        return ResponseEntity.ok().build();
+    }
 }
