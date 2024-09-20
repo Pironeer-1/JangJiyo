@@ -61,7 +61,7 @@ public class TopicController {
     // Comment
     @PostMapping("/{topicId}/comment")
     @Operation(summary = "댓글 작성")
-    public ResponseEntity<?> create(@Valid @RequestBody CommentCreateRequest request) {
+    public ResponseEntity<?> createComment(@Valid @RequestBody CommentCreateRequest request) {
         topicService.addCommentToTopic(request);
         return ResponseEntity.ok().build();
     }
@@ -89,7 +89,7 @@ public class TopicController {
 
     @DeleteMapping("/{topicId}/comment/{commentId}")
     @Operation(summary = "댓글 삭제")
-    public ResponseEntity<?> delete(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
+    public ResponseEntity<?> deleteComment(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
         topicService.deleteComment(topicId, commentId);
         return ResponseEntity.ok().build();
     }
