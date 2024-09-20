@@ -1,13 +1,11 @@
 package com.pironeer.springbootboard.service;
 
-import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
-import com.pironeer.springbootboard.dto.request.CommentUpdateRequest;
-import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
-import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
+import com.pironeer.springbootboard.dto.request.*;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.repository.TopicRepository;
 import com.pironeer.springbootboard.repository.domain.Comment;
+import com.pironeer.springbootboard.repository.domain.Subcomment;
 import com.pironeer.springbootboard.repository.domain.Topic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -79,5 +77,14 @@ public class TopicService {
 
     public void deleteComment(Long topicId, Long commentId) {
         topicRepository.deleteComment(topicId, commentId);
+    }
+
+    // Subcomment
+    public void addSubcommentToComment(SubcommentCreateRequest request) {
+        Subcomment subcomment = Subcomment.builder()
+                .commentId(request.commentId())
+                .content(request.content())
+                .build();
+        topicRepository.addSubcommentToComment(subcomment);
     }
 }

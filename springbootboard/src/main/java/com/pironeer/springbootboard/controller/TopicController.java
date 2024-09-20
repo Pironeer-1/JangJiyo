@@ -1,9 +1,6 @@
 package com.pironeer.springbootboard.controller;
 
-import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
-import com.pironeer.springbootboard.dto.request.CommentUpdateRequest;
-import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
-import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
+import com.pironeer.springbootboard.dto.request.*;
 import com.pironeer.springbootboard.dto.response.CommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.service.TopicService;
@@ -91,6 +88,14 @@ public class TopicController {
     @Operation(summary = "댓글 삭제")
     public ResponseEntity<?> deleteComment(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
         topicService.deleteComment(topicId, commentId);
+        return ResponseEntity.ok().build();
+    }
+
+    // SubComment
+    @PostMapping("/{topicId}/comment/{commentId}/subcomment")
+    @Operation(summary = "대댓글 작성")
+    public ResponseEntity<?> createSubcomment(@Valid @RequestBody SubcommentCreateRequest request) {
+        topicService.addSubcommentToComment(request);
         return ResponseEntity.ok().build();
     }
 }

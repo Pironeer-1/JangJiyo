@@ -1,6 +1,7 @@
 package com.pironeer.springbootboard.repository;
 
 import com.pironeer.springbootboard.repository.domain.Comment;
+import com.pironeer.springbootboard.repository.domain.Subcomment;
 import com.pironeer.springbootboard.repository.domain.Topic;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -16,6 +17,9 @@ public class TopicRepository {
     private final AtomicLong topicIdxGenerator = new AtomicLong(0);
     private final Map<Long, Topic> topicMap = new HashMap<>();
     private final AtomicLong commentIdxGenerator = new AtomicLong(0);
+    private final Map<Long, Comment> commentMap = new HashMap<>();
+    private final AtomicLong subcommentIdxGenerator = new AtomicLong(0);
+    private final Map<Long, Subcomment> subcommentMap = new HashMap<>();
 
     public void save(Topic topic) {
         if(topic.getId() == null) {
@@ -50,9 +54,11 @@ public class TopicRepository {
             Long id = commentIdxGenerator.incrementAndGet();
             comment.setId(id);
             topic.addComment(comment);
-            topicMap.put(comment.getTopicId(), topic);
+            topicMap.replace(comment.getTopicId(), topic);
+            commentMap.put(comment.getId(), comment);
         } else {
             topicMap.replace(comment.getTopicId(), topic);
+            commentMap.replace(comment.getId(), comment);
         }
     }
 
@@ -74,5 +80,22 @@ public class TopicRepository {
 
         Assert.notNull(commentId, "commentId must not be null");
         topic.deleteComment(commentId);
+    }
+
+    // Subcomment
+    public void addSubcommentToComment(Subcomment subcomment) {
+        Comment comment = commentMap.get(subcomment.getCommentId());
+        Assert.notNull(comment, "Comment not found");
+
+        if(comment.getId() == null) {
+            Long id = subcommentIdxGenerator.incrementAndGet();
+            subcomment.setId(id);
+            comment.addSubcomment(subcomment);
+            commentMap.replace(subcomment.getCommentId(), comment);
+            subcommentMap.put(subcomment.getId(), subcomment);
+        } else {
+            commentMap.replace(subcomment.getCommentId(), comment);
+            subcommentMap.replace(subcomment.getId(), subcomment);
+        }
     }
 }

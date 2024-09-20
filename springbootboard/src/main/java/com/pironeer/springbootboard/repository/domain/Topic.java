@@ -15,7 +15,7 @@ public class Topic {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments;
 
     @Builder
     public Topic(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, List<Comment> comments) {
