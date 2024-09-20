@@ -1,9 +1,12 @@
 package com.pironeer.springbootboard.service;
 
+import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
+import com.pironeer.springbootboard.dto.response.CommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.repository.TopicRepository;
+import com.pironeer.springbootboard.repository.domain.Comment;
 import com.pironeer.springbootboard.repository.domain.Topic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,5 +49,23 @@ public class TopicService {
 
     public void deleteById(Long id) {
         topicRepository.deleteById(id);
+    }
+
+    public void addCommentToTopic(CommentCreateRequest request) {
+        Comment comment = Comment.builder()
+                .topicId(request.topicId())
+                .content(request.content())
+                .build();
+        topicRepository.addCommentToTopic(comment);
+    }
+
+    public List<CommentResponse> readAllComments(Long topicId) {
+        List<Comment> comments = topicRepository.readAllComments(topicId);
+        return comments.stream().map(CommentResponse::of).toList();
+    }
+
+    public CommentResponse readCommentById(Long topicId, Long commentId) {
+        Comment comment = topicRepository.readCommentById(topicId, commentId);
+        return CommentResponse.of(comment);
     }
 }

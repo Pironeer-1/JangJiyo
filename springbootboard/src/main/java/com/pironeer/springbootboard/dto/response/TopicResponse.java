@@ -27,5 +27,4 @@ public record TopicResponse(
                 .updatedAt(topic.getUpdatedAt())
                 .build();
     }
-
 }

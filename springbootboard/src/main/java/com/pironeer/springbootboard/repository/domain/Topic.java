@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Topic {
@@ -13,14 +15,16 @@ public class Topic {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Topic(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Topic(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, List<Comment> comments) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.comments = comments != null ? comments : new ArrayList<>();
     }
 
     public Topic update(TopicUpdateRequest request) {
@@ -28,5 +32,9 @@ public class Topic {
         this.content = request.content();
         this.updatedAt = LocalDateTime.now();
         return this;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }

@@ -1,7 +1,9 @@
 package com.pironeer.springbootboard.controller;
 
+import com.pironeer.springbootboard.dto.request.CommentCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicCreateRequest;
 import com.pironeer.springbootboard.dto.request.TopicUpdateRequest;
+import com.pironeer.springbootboard.dto.response.CommentResponse;
 import com.pironeer.springbootboard.dto.response.TopicResponse;
 import com.pironeer.springbootboard.service.TopicService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,5 +55,27 @@ public class TopicController {
     public ResponseEntity<?> delete(@PathVariable("topicId") Long id) {
         topicService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    // Comment
+    @PostMapping("/{topicId}/comment")
+    @Operation(summary = "댓글 작성")
+    public ResponseEntity<?> create(@Valid @RequestBody CommentCreateRequest request) {
+        topicService.addCommentToTopic(request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{topicId}/comment")
+    @Operation(summary = "댓글 전체 조회")
+    public ResponseEntity<List<CommentResponse>> readAllComments(@PathVariable("topicId") Long topicId) {
+        List<CommentResponse> responses = topicService.readAllComments(topicId);
+        return ResponseEntity.ok().body(responses);
+    }
+
+    @GetMapping("/{topicId}/comment/{commentId}")
+    @Operation(summary = "댓글 단건 조회")
+    public ResponseEntity<CommentResponse> readCommentById(@PathVariable("topicId") Long topicId, @PathVariable("commentId") Long commentId) {
+        CommentResponse response = topicService.readCommentById(topicId, commentId);
+        return ResponseEntity.ok().body(response);
     }
 }
