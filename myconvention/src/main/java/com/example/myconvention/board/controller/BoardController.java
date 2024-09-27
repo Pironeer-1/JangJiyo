@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "게시물(Topic)")
-@RequestMapping("/api/topic")
+@Tag(name = "게시물(Board)")
+@RequestMapping("/api/board")
 public class BoardController {
-    private final BoardService topicService;
+    private final BoardService boardService;
 
     @PostMapping
     @Operation(summary = "게시물 작성")
@@ -28,35 +28,35 @@ public class BoardController {
     ) {
         System.out.println(userId);
 
-        SingleResult<Long> save = topicService.save(request);
+        SingleResult<Long> save = boardService.save(request);
         return SuccessResponse.ok(save);
     }
 
-    @GetMapping("/{topicId}")
+    @GetMapping("/{boardId}")
     @Operation(summary = "게시물 단건 조회")
-    public SuccessResponse<SingleResult<BoardResponse>> read(@PathVariable("topicId") Long id) {
-        SingleResult<BoardResponse> result = topicService.findById(id);
+    public SuccessResponse<SingleResult<BoardResponse>> read(@PathVariable("boardId") Long id) {
+        SingleResult<BoardResponse> result = boardService.findById(id);
         return SuccessResponse.ok(result);
     }
 
     @GetMapping
     @Operation(summary = "게시물 전체 조회")
     public SuccessResponse<ListResult<BoardResponse>> readAll() {
-        ListResult<BoardResponse> result = topicService.findAll();
+        ListResult<BoardResponse> result = boardService.findAll();
         return SuccessResponse.ok(result);
     }
 
     @PutMapping
     @Operation(summary = "게시물 수정")
     public SuccessResponse<SingleResult<BoardResponse>> update(@Valid @RequestBody BoardUpdateRequest request) {
-        SingleResult<BoardResponse> response = topicService.update(request);
+        SingleResult<BoardResponse> response = boardService.update(request);
         return SuccessResponse.ok(response);
     }
 
-    @DeleteMapping("/{topicId}")
+    @DeleteMapping("/{boardId}")
     @Operation(summary = "게시물 삭제")
-    public SuccessResponse<SingleResult<Long>> remove(@PathVariable("topicId") Long id) {
-        SingleResult<Long> result = topicService.remove(id);
+    public SuccessResponse<SingleResult<Long>> remove(@PathVariable("boardId") Long id) {
+        SingleResult<Long> result = boardService.remove(id);
         return SuccessResponse.ok(result);
     }
 }

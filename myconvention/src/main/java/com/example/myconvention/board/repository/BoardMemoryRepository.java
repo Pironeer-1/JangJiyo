@@ -11,19 +11,19 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class BoardMemoryRepository implements BoardRepository {
-    private final AtomicLong topicIdxGenerator = new AtomicLong(0);
-    private final Map<Long, Board> topicMap = new HashMap<>();
+    private final AtomicLong boardIdxGenerator = new AtomicLong(0);
+    private final Map<Long, Board> boardMap = new HashMap<>();
 
     @Override
-    public Board save(Board topic) {
-        if (topic.getId() == null) {
-            Long id = topicIdxGenerator.incrementAndGet();
-            topic.setId(id);
-            topicMap.put(id, topic);
-            return topic;
+    public Board save(Board board) {
+        if (board.getId() == null) {
+            Long id = boardIdxGenerator.incrementAndGet();
+            board.setId(id);
+            boardMap.put(id, board);
+            return board;
         } else {
-            topicMap.replace(topic.getId(), topic);
-            return topic;
+            boardMap.replace(board.getId(), board);
+            return board;
         }
     }
 
@@ -32,18 +32,20 @@ public class BoardMemoryRepository implements BoardRepository {
         if (id == null) {
             throw new CustomException(ErrorCode.PARAMETER_NULL_ERROR);
         }
-        return Optional.ofNullable(topicMap.get(id));
+        return Optional.ofNullable(boardMap.get(id));
     }
 
     @Override
     public List<Board> findAll() {
-        return topicMap.values().stream().toList();
+        return boardMap.values().stream().toList();
     }
 
     @Override
     public Long deleteById(Long id) {
-        Assert.notNull(id, "Id must not be Null");
-        topicMap.remove(id);
+        if (id == null) {
+            throw new CustomException(ErrorCode.PARAMETER_NULL_ERROR);
+        }
+        boardMap.remove(id);
         return id;
     }
 }

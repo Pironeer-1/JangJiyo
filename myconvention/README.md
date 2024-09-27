@@ -48,3 +48,8 @@
 - 전역적으로 예외를 처리하기 위해 CustomException을 사용해 에러를 처리함
 - 에러 종류의 경우에는 ErrorCode라는 enum 클래스에 정의함
 
+
+---
+## ❓🤔
+- 게시물이라는 의미적으로는 board보다는 topic이 더 맞을 것 같은데 board안에 topic과 comment가 다 들어가기를 원하셨나용..??
+- 만약 그렇다면 board라는 패키지 안에 topic과 comment라는 패키지 2개가 같이 들어가있는 구조가 맞는 건지, 아니면 지금까지와 비슷하게 myconvention 패키지의 하위에 있는 구조가 맞는건가요??

@@ -19,36 +19,36 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-    private final BoardRepository topicRepository;
+    private final BoardRepository boardRepository;
 
     public SingleResult<Long> save(BoardCreateRequest request) {
-        Board savedTopic = topicRepository.save(BoardMapper.from(request));
-        return ResponseService.getSingleResult(savedTopic.getId());
+        Board savedBoard = boardRepository.save(BoardMapper.from(request));
+        return ResponseService.getSingleResult(savedBoard.getId());
     }
 
     public SingleResult<BoardResponse> findById(Long id) {
-        Board topic = topicRepository.findById(id)
+        Board board = boardRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
-        BoardResponse topicResponse = BoardResponse.of(topic);
-        return ResponseService.getSingleResult(topicResponse);
+        BoardResponse boardResponse = BoardResponse.of(board);
+        return ResponseService.getSingleResult(boardResponse);
     }
 
     public ListResult<BoardResponse> findAll() {
-        List<Board> topics = topicRepository.findAll();
-        List<BoardResponse> list = topics.stream().map(BoardResponse::of).toList();
+        List<Board> boards = boardRepository.findAll();
+        List<BoardResponse> list = boards.stream().map(BoardResponse::of).toList();
         return ResponseService.getListResult(list);
     }
 
     public SingleResult<BoardResponse> update(BoardUpdateRequest request) {
-        Board topic = topicRepository.findById(request.id())
+        Board board = boardRepository.findById(request.id())
                 .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
-        topicRepository.save(topic.update(request));
-        BoardResponse topicResponse = BoardResponse.of(topic);
-        return ResponseService.getSingleResult(topicResponse);
+        boardRepository.save(board.update(request));
+        BoardResponse boardResponse = BoardResponse.of(board);
+        return ResponseService.getSingleResult(boardResponse);
     }
 
     public SingleResult<Long> remove(Long id) {
-        Long deletedId = topicRepository.deleteById(id);
+        Long deletedId = boardRepository.deleteById(id);
         return ResponseService.getSingleResult(deletedId);
     }
 }

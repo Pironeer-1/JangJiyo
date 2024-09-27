@@ -24,13 +24,13 @@ public record BoardResponse(
         @NotNull
         @Schema(description = "게시물 수정 시간", example = "2024-10-13 10:10:00")
         LocalDateTime updatedAt) {
-    public static BoardResponse of(Board topic) {
+    public static BoardResponse of(Board board) {
         return BoardResponse.builder()
-                .id(topic.getId())
-                .title(topic.getTitle())
-                .content(topic.getContent())
-                .createdAt(topic.getCreatedAt())
-                .updatedAt(topic.getUpdatedAt())
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .createdAt(board.getCreatedAt())
+                .updatedAt(board.getUpdatedAt())
                 .build();
     }
 }
