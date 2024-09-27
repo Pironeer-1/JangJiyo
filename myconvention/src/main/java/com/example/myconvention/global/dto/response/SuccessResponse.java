@@ -2,7 +2,9 @@ package com.example.myconvention.global.dto.response;
 
 import com.example.myconvention.global.dto.response.result.ResponseState;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
 
+@Getter
 public class SuccessResponse<T> {
     @Schema(description = "성공 여부", example = "true")
     private boolean success = true;

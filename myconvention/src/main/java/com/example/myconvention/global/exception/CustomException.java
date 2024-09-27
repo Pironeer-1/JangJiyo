@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public class CustomException extends RuntimeException {
     private Exception originException;
-    private final ErrorCode errorcode;
+    private final ErrorCode errorCode;
 
-    public CustomException(ErrorCode errorcode) {
-        this.errorcode = errorcode;
+    public CustomException(ErrorCode errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public CustomException(Exception originException, ErrorCode errorcode) {
+    public CustomException(Exception originException, ErrorCode errorCode) {
         this.originException = originException;
-        this.errorcode = errorcode;
+        this.errorCode = errorCode;
     }
 }

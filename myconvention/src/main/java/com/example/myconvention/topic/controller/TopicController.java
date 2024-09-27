@@ -22,7 +22,12 @@ public class TopicController {
 
     @PostMapping
     @Operation(summary = "게시물 작성")
-    public SuccessResponse<SingleResult<Long>> create(@Valid @RequestBody TopicCreateRequest request) {
+    public SuccessResponse<SingleResult<Long>> create(
+            @RequestAttribute("id") String userId,
+            @Valid @RequestBody TopicCreateRequest request
+    ) {
+        System.out.println(userId);
+
         SingleResult<Long> save = topicService.save(request);
         return SuccessResponse.ok(save);
     }

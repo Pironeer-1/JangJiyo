@@ -18,7 +18,7 @@ public class ResponseService {
     // 리스트 값을 감싸는 메서드
     public static <T> ListResult<T> getListResult(List<T> list) {
         ListResult<T> result = new ListResult<>();
-        result.setData(list);
+        result.setList(list);
         return result;
     }
 }
