@@ -1,9 +1,9 @@
-package com.example.myconvention.topic.dto.request;
+package com.example.myconvention.board.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
-public record TopicCreateRequest(
+public record BoardCreateRequest(
     @NotBlank
     @Schema(description = "게시물 제목", example = "제목")
     String title,

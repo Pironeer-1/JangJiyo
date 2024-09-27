@@ -1,13 +1,13 @@
-package com.example.myconvention.topic.entity;
+package com.example.myconvention.board.entity;
 
-import com.example.myconvention.topic.dto.request.TopicUpdateRequest;
+import com.example.myconvention.board.dto.request.BoardUpdateRequest;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Topic {
+public class Board {
     private Long id;
     private String title;
     private String content;
@@ -15,7 +15,7 @@ public class Topic {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Topic(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Board(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -23,7 +23,7 @@ public class Topic {
         this.updatedAt = updatedAt;
     }
 
-    public Topic update(TopicUpdateRequest request) {
+    public Board update(BoardUpdateRequest request) {
         this.title = request.title();
         this.content = request.content();
         this.updatedAt = LocalDateTime.now();

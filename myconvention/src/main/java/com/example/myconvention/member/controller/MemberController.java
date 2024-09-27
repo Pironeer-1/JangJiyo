@@ -32,4 +32,6 @@ public class MemberController {
         SingleResult<JwtTokenSet> result = memberService.login(request);
         return SuccessResponse.ok(result);
     }
+
+
 }

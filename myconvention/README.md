@@ -2,13 +2,13 @@
 
 ## 1. 디렉토리 및 파일
 ### 📌 `도메인형 구조`
-- 각 도메인들의 흐름을 파악하기 쉽게 하기 위하여 _도메인형 구조_ 선택
+- 각 도메인들의 흐름을 파악하기 쉽게 하기 위하여 **도메인형 구조** 선택
 
   (개인적으로 도메인형 구조가 직관적이어서 보기에 더 편리한 듯..)
 
 ### 📌 `사용 방식`
     ▶️ global: 특정 도메인에 종속되지 않고, 프로젝트 전방위적으로 이용할 수 있는 것들
-    ▶️ topic: controller, service, repository 등 topic과 관련된 구현
+    ▶️ board: controller, service, repository 등 topic과 관련된 구현
     ▶️ member: controller, service, repository 등 member와 관련된 구현
 
     ▶️ controller: 사용자의 요청 처리, 적절한 서비스 메서드를 호출하여 결과를 클라이언트에게 전달
@@ -29,12 +29,11 @@
 - 변수: **카멜** 표기법
 - 상수: **스네이크** 케이스를 사용하여 **대문자**로 표기
 
-
 ### 📌 `사용 방식`
-    ▶️ package: global, topic, member / controller, service, repository, ...
-    ▶️ class: TopicController, TopicService, JwtTokenSet, ...
+    ▶️ package: global, board, member / controller, service, repository, ...
+    ▶️ class: BoardController, BoardService, JwtTokenSet, ...
     ▶️ method: save, findById, existByMemberId, ...
-    ▶️ 변수: topicMap, memberMap, ...
+    ▶️ 변수: boardMap, memberMap, ...
     ▶️ 상수: USER_NOT_EXIST, USER_WRONG_PASSWORD, ...
 
 
@@ -48,3 +47,4 @@
 ### 📌 `CustomException 이용`
 - 전역적으로 예외를 처리하기 위해 CustomException을 사용해 에러를 처리함
 - 에러 종류의 경우에는 ErrorCode라는 enum 클래스에 정의함
+

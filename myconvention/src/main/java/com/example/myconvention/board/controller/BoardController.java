@@ -1,12 +1,12 @@
-package com.example.myconvention.topic.controller;
+package com.example.myconvention.board.controller;
 
 import com.example.myconvention.global.dto.response.SuccessResponse;
 import com.example.myconvention.global.dto.response.result.ListResult;
 import com.example.myconvention.global.dto.response.result.SingleResult;
-import com.example.myconvention.topic.dto.request.TopicCreateRequest;
-import com.example.myconvention.topic.dto.request.TopicUpdateRequest;
-import com.example.myconvention.topic.dto.response.TopicResponse;
-import com.example.myconvention.topic.service.TopicService;
+import com.example.myconvention.board.dto.request.BoardCreateRequest;
+import com.example.myconvention.board.dto.request.BoardUpdateRequest;
+import com.example.myconvention.board.dto.response.BoardResponse;
+import com.example.myconvention.board.service.BoardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(name = "게시물(Topic)")
 @RequestMapping("/api/topic")
-public class TopicController {
-    private final TopicService topicService;
+public class BoardController {
+    private final BoardService topicService;
 
     @PostMapping
     @Operation(summary = "게시물 작성")
     public SuccessResponse<SingleResult<Long>> create(
             @RequestAttribute("id") String userId,
-            @Valid @RequestBody TopicCreateRequest request
+            @Valid @RequestBody BoardCreateRequest request
     ) {
         System.out.println(userId);
 
@@ -34,22 +34,22 @@ public class TopicController {
 
     @GetMapping("/{topicId}")
     @Operation(summary = "게시물 단건 조회")
-    public SuccessResponse<SingleResult<TopicResponse>> read(@PathVariable("topicId") Long id) {
-        SingleResult<TopicResponse> result = topicService.findById(id);
+    public SuccessResponse<SingleResult<BoardResponse>> read(@PathVariable("topicId") Long id) {
+        SingleResult<BoardResponse> result = topicService.findById(id);
         return SuccessResponse.ok(result);
     }
 
     @GetMapping
     @Operation(summary = "게시물 전체 조회")
-    public SuccessResponse<ListResult<TopicResponse>> readAll() {
-        ListResult<TopicResponse> result = topicService.findAll();
+    public SuccessResponse<ListResult<BoardResponse>> readAll() {
+        ListResult<BoardResponse> result = topicService.findAll();
         return SuccessResponse.ok(result);
     }
 
     @PutMapping
     @Operation(summary = "게시물 수정")
-    public SuccessResponse<SingleResult<TopicResponse>> update(@Valid @RequestBody TopicUpdateRequest request) {
-        SingleResult<TopicResponse> response = topicService.update(request);
+    public SuccessResponse<SingleResult<BoardResponse>> update(@Valid @RequestBody BoardUpdateRequest request) {
+        SingleResult<BoardResponse> response = topicService.update(request);
         return SuccessResponse.ok(response);
     }
 

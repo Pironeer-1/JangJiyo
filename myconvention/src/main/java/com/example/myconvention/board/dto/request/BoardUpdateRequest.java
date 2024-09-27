@@ -1,10 +1,10 @@
-package com.example.myconvention.topic.dto.request;
+package com.example.myconvention.board.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record TopicUpdateRequest(
+public record BoardUpdateRequest(
         @NotNull
         @Schema(description = "게시물 ID", example = "1")
         Long id,
