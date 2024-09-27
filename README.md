@@ -7,4 +7,4 @@
 
 2 week | SpringBootBoard
 
-3 week | PROGRAMMERS lv3
+3 week | PROGRAMMERS lv3 & Convention
