@@ -1,5 +1,6 @@
 package com.example.myconvention.topic.repository;
 
+import com.example.myconvention.global.exception.CustomException;
 import com.example.myconvention.topic.entity.Topic;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
