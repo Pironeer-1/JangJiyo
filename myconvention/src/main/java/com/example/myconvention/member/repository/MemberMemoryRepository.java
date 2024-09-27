@@ -1,5 +1,7 @@
 package com.example.myconvention.member.repository;
 
+import com.example.myconvention.global.exception.CustomException;
+import com.example.myconvention.global.exception.ErrorCode;
 import com.example.myconvention.member.entity.Member;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -29,7 +31,9 @@ public class MemberMemoryRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findById(Long id) {
-        Assert.notNull(id, "Id must not be Null");
+        if (id == null) {
+            throw new CustomException(ErrorCode.PARAMETER_NULL_ERROR);
+        }
         return Optional.ofNullable(memberMap.get(id));
     }
 

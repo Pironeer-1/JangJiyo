@@ -1,6 +1,7 @@
 package com.example.myconvention.topic.repository;
 
 import com.example.myconvention.global.exception.CustomException;
+import com.example.myconvention.global.exception.ErrorCode;
 import com.example.myconvention.topic.entity.Topic;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
@@ -28,7 +29,9 @@ public class TopicMemoryRepository implements TopicRepository {
 
     @Override
     public Optional<Topic> findById(Long id) {
-        Assert.notNull(id, "Id must not be Null");
+        if (id == null) {
+            throw new CustomException(ErrorCode.PARAMETER_NULL_ERROR);
+        }
         return Optional.ofNullable(topicMap.get(id));
     }
 

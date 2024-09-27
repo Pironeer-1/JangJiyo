@@ -41,7 +41,7 @@ public class TopicService {
 
     public SingleResult<TopicResponse> update(TopicUpdateRequest request) {
         Topic topic = topicRepository.findById(request.id())
-                .orElseThrow(() -> new RuntimeException("Topic not found"));
+                .orElseThrow(() -> new CustomException(ErrorCode.BOARD_NOT_FOUND));
         topicRepository.save(topic.update(request));
         TopicResponse topicResponse = TopicResponse.of(topic);
         return ResponseService.getSingleResult(topicResponse);

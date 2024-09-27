@@ -31,6 +31,7 @@ public enum ErrorCode {
     INVALID_PARAMETER(-102, "잘못된 파라미터입니다.",422),
     PARAMETER_VALIDATION_ERROR(-103, "파라미터 검증 에러입니다.",422),
     PARAMETER_GRAMMAR_ERROR(-104, "파라미터 문법 에러입니다.",422),
+    PARAMETER_NULL_ERROR(-105, "파라미터 공백 에러입니다.", 422),
 
     //Auth
     UNAUTHORIZED(-200, "인증 자격이 없습니다.", 401),
